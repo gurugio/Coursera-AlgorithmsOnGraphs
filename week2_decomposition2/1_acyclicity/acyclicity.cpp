@@ -17,16 +17,16 @@ int explore_acyclic(vector<vector<int> >& adj, int* visited_color, int current)
 		cout << "check: " << (current+1) << "->" << (i+1) << endl;
 		if (visited_color[i] == 0) {
 			if (explore_acyclic(adj, visited_color, i) == 0)
-				return 0; // found cycle
+				return 1; // found cycle
 		} else if (visited_color[i] == 1) { // found back-edge
 			cout << "back-edge: " << (current+1) << "->" << (i+1) << endl;
-			return 0; // found cycle
+			return 1; // found cycle
 		}
 		//assert(visited_color[i] != 2);
 	}
 	visited_color[current] = 2; // black, finished
 	cout << "finish: " << (current+1) << endl;
-	return 1; // acyclic
+	return 0; // acyclic
 }
 
 int acyclic(vector<vector<int> > &adj) {
@@ -40,12 +40,12 @@ int acyclic(vector<vector<int> > &adj) {
 
 	for (int i = 0; i < adj.size(); i++) {
 		if (visited_color[i] == 0) {
-			if (explore_acyclic(adj, visited_color, i) == 0)
-				return 0; // found cycle
+			if (explore_acyclic(adj, visited_color, i) == 1)
+				return 1; // found cycle
 		}
 	}
 	
-	return 1; // acyclic
+	return 0; // acyclic
 }
 
 int main() {
