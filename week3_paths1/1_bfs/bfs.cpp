@@ -2,12 +2,36 @@
 #include <vector>
 #include <queue>
 
+using namespace std;
 using std::vector;
 using std::queue;
 
 int distance(vector<vector<int> > &adj, int s, int t) {
   //write your code here
-  return -1;
+	vector<int> distance (adj.size(), -1);
+	queue<int> q;
+
+	distance[s] = 0;
+	q.push(s);
+
+	cout << "start: " << s << endl;
+
+	while (!q.empty()) {
+		int next = q.front();
+		q.pop();
+
+		cout << "from: " << next << endl;
+		
+		for (const int x: adj[next]) {
+			if (distance[x] == -1) {
+				distance[x] = distance[next] + 1;
+				q.push(x);
+				cout << x << endl;
+			}
+		}
+	}
+	
+	return distance[t];
 }
 
 int main() {
